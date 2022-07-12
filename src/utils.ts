@@ -20,7 +20,6 @@ export function parseFunctionHeader(code: string) {
 
 	for (let i = 0; i < functionArgumentsStringSplit.length; i++) {
 		let argumentString: string = functionArgumentsStringSplit[i].trim();
-		console.log(argumentString);
 		let argsMatches: string[] = argumentString.match(functionArgumentsRegExp)!;
 		let variableName: string = argsMatches[1];
 		let variableDataType: string = argsMatches[2];
@@ -36,7 +35,8 @@ export function generateExecutionTimePythonCode(code: string, functionName: stri
 	for (let i = 0; i < functionArguments.length; i++) {
 		functionCallString += `${functionArguments[i].name}=${functionArguments[i].value},`;
 	}
+	functionCallString = functionCallString.slice(0, -1); // discard the trailing comma
 	functionCallString += ')';
-	code = code + '\n' + 'import time\n' + 'start = time.time()\n' + functionCallString + '\n' + 'end = time.time()\n' + 'print(end - start)';
-	return code;
+	let codeToExecute: string = code + '\n' + 'import time\n' + 'start = time.time()\n' + functionCallString + '\n' + 'end = time.time()\n' + 'print(end - start)';
+	return [codeToExecute, functionCallString] as const;
 }

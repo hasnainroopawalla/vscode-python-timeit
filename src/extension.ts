@@ -2,11 +2,6 @@ import * as vscode from 'vscode';
 import { PythonShell, PythonShellError } from 'python-shell';
 import { getFirstLineOfCode, parseFunctionHeader, generateExecutionTimePythonCode, FunctionArgument } from "./utils";
 
-function getfunctionArgumentsValues(functionArgument: FunctionArgument) {
-	return vscode.window.showInputBox({
-		placeHolder: `Enter value for ${functionArgument.name} (type: ${functionArgument.datatype}, default: ${functionArgument.value})`
-	});
-}
 
 export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('vscode-python-timeit.timeIt', async () => {
@@ -17,21 +12,35 @@ export function activate(context: vscode.ExtensionContext) {
 			return;
 		}
 
+		function getfunctionArgumentsValues(functionArgument: FunctionArgument) {
+			return vscode.window.showInputBox({
+				placeHolder: `Enter value for ${functionArgument.name} (type: ${functionArgument.datatype}, default: ${functionArgument.value})`
+			});
+		}
+
+		function displayExecutionTime(executionTime: string) {
+			let pos = new vscode.Position(editor?.selection.active.line as number, editor?.selection.active.character as number);
+			editor?.edit((edit) => {
+				edit.insert(pos, `# ${functionCallString} => ${executionTime} seconds\n`);
+			});
+			vscode.window.showInformationMessage(`Execution Time: ${executionTime} seconds`);
+		}
+
 		let selection = editor.selection;
 		let code = editor.document.getText(selection).trim();
 
 		let firstLineOfCode = getFirstLineOfCode(code);
 		const [functionName, functionArguments] = parseFunctionHeader(firstLineOfCode);
-		
+
 		// Fetch argument values from the user
 		for (let i = 0; i < functionArguments.length; i++) {
 			let argValue = await getfunctionArgumentsValues(functionArguments[i]);
-			if (argValue){ // If input is empty, use default value
+			if (argValue) { // If input is empty, use default value
 				functionArguments[i].value = argValue!;
 			}
 		}
-		
-		let codeToExecute = generateExecutionTimePythonCode(code, functionName, functionArguments);
+
+		const [codeToExecute, functionCallString] = generateExecutionTimePythonCode(code, functionName, functionArguments);
 		console.log(codeToExecute);
 
 		PythonShell.runString(codeToExecute, {}, function (err: PythonShellError, results?: string[]) {
@@ -39,14 +48,13 @@ export function activate(context: vscode.ExtensionContext) {
 				vscode.window.showInformationMessage(err.toString());
 			}
 			else {
-				let executionTime = parseFloat(results![results!.length - 1]).toFixed(5);
-				vscode.window.showInformationMessage(`Execution Time: ${executionTime} seconds`);
+				let executionTime: string = parseFloat(results![results!.length - 1]).toFixed(5);
+				displayExecutionTime(executionTime);
 				console.log('results: %j', results![results!.length - 1]);
 			}
 
 		});
 	});
-
 	context.subscriptions.push(disposable);
 }
 
