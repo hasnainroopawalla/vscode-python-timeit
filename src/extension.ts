@@ -1,9 +1,8 @@
 import * as vscode from 'vscode';
-import {PythonShell} from 'python-shell';
-import {getFirstLineOfCode, parseFunctionHeader, generateExecutionTimePythonCode} from "./utils";
+import { PythonShell, PythonShellError } from 'python-shell';
+import { getFirstLineOfCode, parseFunctionHeader, generateExecutionTimePythonCode } from "./utils";
 
-
-function getArgsValues(key: string){
+function getfunctionArgumentsValues(key: string) {
 	return vscode.window.showInputBox({
 		placeHolder: `Enter value for ${key}`
 	});
@@ -12,36 +11,37 @@ function getArgsValues(key: string){
 export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('vscode-python-timeit.timeIt', async () => {
 		const editor = vscode.window.activeTextEditor;
-		
-		if (!editor){
+
+		if (!editor) {
 			vscode.window.showInformationMessage("Editor does not exist.");
 			return;
 		}
 
-		var selection = editor.selection;
-		var code = editor.document.getText(selection).trim();
-		
+		let selection = editor.selection;
+		let code = editor.document.getText(selection).trim();
+
 		let firstLineOfCode = getFirstLineOfCode(code);
-		const [functionName, args] = parseFunctionHeader(firstLineOfCode);
-		
+		const [functionName, functionArguments] = parseFunctionHeader(firstLineOfCode);
+
 		// Fetch argument values from the user
-		for (let key in args) {
-			args[key] = await getArgsValues(key);
+		for (let i = 0; i < functionArguments.length; i++) {
+			let argValue = await getfunctionArgumentsValues(functionArguments[i].name);
+			functionArguments[i].value = argValue!;
 		}
 
-		let codeToExecute = generateExecutionTimePythonCode(code, functionName, args);
+		let codeToExecute = generateExecutionTimePythonCode(code, functionName, functionArguments);
 		console.log(codeToExecute);
 
-		PythonShell.runString(codeToExecute, {}, function (err, results: string[]) {
+		PythonShell.runString(codeToExecute, {}, function (err: PythonShellError, results?: string[]) {
 			if (err) {
 				vscode.window.showInformationMessage(err.toString());
 			}
-			else{
-				let executionTime = parseFloat(results[results.length-1]).toFixed(5);
+			else {
+				let executionTime = parseFloat(results![results!.length - 1]).toFixed(5);
 				vscode.window.showInformationMessage(`Execution Time: ${executionTime} seconds`);
-				console.log('results: %j', results[results.length-1]);
+				console.log('results: %j', results![results!.length - 1]);
 			}
-			
+
 		});
 	});
 
@@ -49,4 +49,4 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
