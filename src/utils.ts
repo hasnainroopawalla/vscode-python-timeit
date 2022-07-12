@@ -33,6 +33,12 @@ export function generateExecutionTimePythonCode(code: string, functionName: stri
 	}
 	functionCallString = functionCallString.slice(0, -1); // discard the trailing comma
 	functionCallString += ')';
-	let codeToExecute: string = code + '\n' + 'import time\n' + 'start = time.time()\n' + functionCallString + '\n' + 'end = time.time()\n' + 'print(end - start)';
+	let codeToExecute: string =
+		code + '\n' +
+		'import time\n' +
+		'start = time.time()\n' +
+		functionCallString + '\n' +
+		'end = time.time()\n' +
+		'print(end - start)';
 	return [codeToExecute, functionCallString] as const;
 }

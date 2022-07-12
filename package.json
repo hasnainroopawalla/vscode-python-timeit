@@ -1,11 +1,22 @@
 {
   "name": "vscode-python-timeit",
-	"displayName": "vscode-python-timeit",
-	"description": "",
-	"version": "0.0.1",
+	"displayName": "Python TimeIt",
+	"description": "Display execution time of a Python function.",
+	"version": "1.0.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/hasnainroopawalla/vscode-python-timeit"
+	},
+	"license": "MIT",
 	"engines": {
 		"vscode": "^1.69.0"
 	},
+	"keywords": [
+		"Python",
+		"timeit",
+		"execution time",
+		"function"
+	],
 	"categories": [
 		"Other"
 	],
