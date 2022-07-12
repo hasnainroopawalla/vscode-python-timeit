@@ -1,5 +1,6 @@
 export interface FunctionArgument {
 	name: string;
+	datatype: string;
 	value: string;
 };
 
@@ -7,28 +8,25 @@ export function getFirstLineOfCode(code: string) {
 	return code.substring(0, code.indexOf('\n'));
 }
 
-export function parseFunctionHeader(firstLineOfCode: string) {
-	// function name starts from index 4 after 'def'
+export function parseFunctionHeader(code: string) {
+	const functionHeaderRegExp : RegExp = /def (\w+)\s*\((.*?)\):/;
+	let matches: string[] = code.match(functionHeaderRegExp)!;
+	let functionName: string = matches[1];
+	let functionArgumentsString: string = matches[2];
+
+	let functionArgumentsStringSplit: string[] = functionArgumentsString.split(',');
 	let functionArguments: FunctionArgument[] = [];
+	const functionArgumentsRegExp : RegExp =  /(\w*)\s?:?\s?(\w*)\s?=?\s?([\w"']*)/;
 
-	let argumentsStartIdx = firstLineOfCode.indexOf('(') + 1;
-	let argumentsEndIdx = firstLineOfCode.indexOf(')') - 1;
-	let functionName = firstLineOfCode.substring(4, argumentsStartIdx - 1);
-
-	let argumentsSubstring = firstLineOfCode.substring(argumentsStartIdx, argumentsEndIdx + 1);
-	let splitArgs = argumentsSubstring.split(',');
-	for (let i = 0; i < splitArgs.length; i++) {
-		let argumentTrimmed = splitArgs[i].trim();
-		let argName = "";
-		// check if type hints are specified
-		if (argumentTrimmed.includes(':')) {
-			argName = argumentTrimmed.substring(0, argumentTrimmed.indexOf(':')).trim();
-		}
-		else {
-			argName = argumentTrimmed;
-		}
-		let arg: FunctionArgument = { name: argName, value: "" };
-		functionArguments.push(arg);
+	for (let i = 0; i < functionArgumentsStringSplit.length; i++) {
+		let argumentString: string = functionArgumentsStringSplit[i].trim();
+		console.log(argumentString);
+		let argsMatches: string[] = argumentString.match(functionArgumentsRegExp)!;
+		let variableName: string = argsMatches[1];
+		let variableDataType: string = argsMatches[2];
+		let variableValue: string = argsMatches[3];
+		let functionArgument: FunctionArgument = { name: variableName, datatype: variableDataType, value: variableValue};
+		functionArguments.push(functionArgument);
 	}
 	return [functionName, functionArguments] as const;
 }
