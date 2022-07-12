@@ -2,7 +2,7 @@
   "name": "vscode-python-timeit",
   "displayName": "Python TimeIt",
   "description": "Quickly display the execution time of a Python function by providing custom argument values.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "publisher": "HasnainRoopawalla",
   "repository": {
     "type": "git",
@@ -57,6 +57,6 @@
     "mocha": "^10.0.0",
     "typescript": "^4.7.4",
     "@vscode/test-electron": "^2.1.5",
-	"python-shell": "^3.0.0"
+    "python-shell": "^3.0.0"
   }
 }
