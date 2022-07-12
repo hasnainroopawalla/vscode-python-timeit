@@ -2,8 +2,9 @@
 
 Quickly view the execution time of a Python function by providing custom argument values.
 
-![](images/demo.gif)
-
+<p align="center">
+<img src="images/demo.gif" alt="Demo"/>
+</p>
 
 ## Features
 
