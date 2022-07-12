@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { PythonShell, PythonShellError } from 'python-shell';
-import { getFirstLineOfCode, parseFunctionHeader, generateExecutionTimePythonCode, FunctionArgument } from "./utils";
+import { parseFunctionHeader, generateExecutionTimePythonCode, FunctionArgument } from "./utils";
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -26,11 +26,9 @@ export function activate(context: vscode.ExtensionContext) {
 			vscode.window.showInformationMessage(`Execution Time: ${executionTime} seconds`);
 		}
 
-		let selection = editor.selection;
-		let code = editor.document.getText(selection).trim();
+		let code = editor.document.getText(editor.selection).trim();
 
-		let firstLineOfCode = getFirstLineOfCode(code);
-		const [functionName, functionArguments] = parseFunctionHeader(firstLineOfCode);
+		const [functionName, functionArguments] = parseFunctionHeader(code);
 
 		// Fetch argument values from the user
 		for (let i = 0; i < functionArguments.length; i++) {
@@ -45,6 +43,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		PythonShell.runString(codeToExecute, {}, function (err: PythonShellError, results?: string[]) {
 			if (err) {
+				console.log(err);
 				vscode.window.showInformationMessage(err.toString());
 			}
 			else {

@@ -4,19 +4,15 @@ export interface FunctionArgument {
 	value: string;
 };
 
-export function getFirstLineOfCode(code: string) {
-	return code.substring(0, code.indexOf('\n'));
-}
-
 export function parseFunctionHeader(code: string) {
-	const functionHeaderRegExp : RegExp = /def (\w+)\s*\((.*?)\):/;
+	const functionHeaderRegExp: RegExp = /def (\w+)\s*\((.*?)\):/;
 	let matches: string[] = code.match(functionHeaderRegExp)!;
 	let functionName: string = matches[1];
 	let functionArgumentsString: string = matches[2];
 
 	let functionArgumentsStringSplit: string[] = functionArgumentsString.split(',');
 	let functionArguments: FunctionArgument[] = [];
-	const functionArgumentsRegExp : RegExp =  /(\w*)\s?:?\s?(\w*)\s?=?\s?([\w"']*)/;
+	const functionArgumentsRegExp: RegExp = /(\w*)\s?:?\s?(\w*)\s?=?\s?([\w"']*)/;
 
 	for (let i = 0; i < functionArgumentsStringSplit.length; i++) {
 		let argumentString: string = functionArgumentsStringSplit[i].trim();
@@ -24,7 +20,7 @@ export function parseFunctionHeader(code: string) {
 		let variableName: string = argsMatches[1];
 		let variableDataType: string = argsMatches[2];
 		let variableValue: string = argsMatches[3];
-		let functionArgument: FunctionArgument = { name: variableName, datatype: variableDataType, value: variableValue};
+		let functionArgument: FunctionArgument = { name: variableName, datatype: variableDataType, value: variableValue };
 		functionArguments.push(functionArgument);
 	}
 	return [functionName, functionArguments] as const;
