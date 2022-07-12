@@ -3,6 +3,7 @@
 	"displayName": "Python TimeIt",
 	"description": "Display execution time of a Python function.",
 	"version": "1.0.0",
+	"publisher": "HasnainRoopawalla"
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/hasnainroopawalla/vscode-python-timeit"
