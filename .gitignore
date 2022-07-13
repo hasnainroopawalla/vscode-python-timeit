@@ -3,3 +3,4 @@ dist
 .vscode-test/
 node_modules
 *.vsix
+.DS_Store

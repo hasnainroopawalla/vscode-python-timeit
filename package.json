@@ -2,9 +2,9 @@
   "name": "vscode-python-timeit",
   "displayName": "Python TimeIt",
   "description": "View the execution time of any Python function on the fly.",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "publisher": "HasnainRoopawalla",
-  "icon": "images/icon.jpg",
+  "icon": "images/logo.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/hasnainroopawalla/vscode-python-timeit"

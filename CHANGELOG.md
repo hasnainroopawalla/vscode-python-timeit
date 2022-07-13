@@ -1,5 +1,8 @@
 # Change Log
 
+## 13-July-2022 [1.3.5]
+- Updated the logo (removed background to make it a vector)
+  
 ## 13-July-2022 [1.3.4]
 - Updated the description of the extension
 

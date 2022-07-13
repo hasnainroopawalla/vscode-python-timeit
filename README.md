@@ -1,7 +1,7 @@
 # Visual Studio Code Extension - Python TimeIt
 
 <p align="center">
-    <img width=200 src="images/icon.jpg" alt="VS Code Python Time It Logo">
+    <img width=150 src="images/logo.png" alt="VS Code Python Time It Logo">
 </p>
 
 ---
@@ -29,13 +29,12 @@ View the execution time of any Python function on the fly.
 
 * Uses the built-in Python3 [time](https://docs.python.org/3/library/time.html) module to efficiently compute the execution time.
 
-* Handles various kinds of Python function definitions including type hints and default values.
+* Handles various kinds of Python function definitions, including type hints and default values.
 
 
 ## Known Issue(s)
 
-* ~~The parser fails for functions with no arguments.~~
-* The parser fails for Python functions which contain type hints for return type(s).
+* The parser fails for Python functions that contain type hints for return type(s).
 
 
 ## Installation 
