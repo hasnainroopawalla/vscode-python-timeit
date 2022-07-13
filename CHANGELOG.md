@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.2.4]
+- Removed the *node_modules* folder
+- Updated the *package.json* file
+
 ## [1.2.3]
 - Included the *node_modules* folder
 
