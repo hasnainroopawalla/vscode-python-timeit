@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.2.3]
+- Included the *node_modules* folder
+
 ## [1.2.2]
 - Removed the `python-shell` not installed prompt and various unnecessary log statements
 
