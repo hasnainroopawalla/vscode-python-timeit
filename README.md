@@ -24,7 +24,7 @@ Display the execution time of a Python function by providing custom argument val
 
 ## Requirements
 
-This extension requires the `python-shell` npm package ([source](https://www.npmjs.com/package/python-shell)). If this package is not detected, a prompt is generated for installation.
+This extension requires the `python-shell` npm package ([install](https://www.npmjs.com/package/python-shell)). 
 
 ## Known Issue(s)
 

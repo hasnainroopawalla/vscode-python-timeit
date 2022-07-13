@@ -12,20 +12,6 @@ export function activate(context: vscode.ExtensionContext) {
 			return;
 		}
 
-		// Check if python-shell is installed
-		try {
-			require('python-shell');
-		} catch {
-			vscode.window
-				.showInformationMessage('python-shell package required', 'Install')
-				.then(selection => {
-					const term = vscode.window.createTerminal('python-shell installer');
-					term.show();
-					term.sendText(`npm install python-shell`);
-				});
-			return;
-		}
-
 		function getfunctionArgumentsValues(functionArgument: FunctionArgument) {
 			return vscode.window.showInputBox({
 				placeHolder: `Enter value for ${functionArgument.name} (type: ${functionArgument.datatype}, default: ${functionArgument.value})`
@@ -62,7 +48,6 @@ export function activate(context: vscode.ExtensionContext) {
 			else {
 				let executionTime: string = parseFloat(results![results!.length - 1]).toFixed(5);
 				displayExecutionTime(executionTime);
-				console.log('results: %j', results![results!.length - 1]);
 			}
 
 		});
