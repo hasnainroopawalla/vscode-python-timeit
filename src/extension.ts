@@ -40,7 +40,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		const [codeToExecute, functionCallString] = generateExecutionTimePythonCode(code, functionName, functionArguments);
 
-		pythonshell.PythonShell.runString(codeToExecute, {}, function (err, results?: string[]) {
+		pythonshell.PythonShell.runString(codeToExecute, {}, function (err?: any, results?: string[]) {
 			if (err) {
 				console.log(err);
 				vscode.window.showInformationMessage(err.toString());
