@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.2.5]
+- Changed the `python-shell` import statement
+
 ## [1.2.4]
 - Removed the *node_modules* folder
 - Updated the *package.json* file
