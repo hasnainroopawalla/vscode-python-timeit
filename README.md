@@ -1,6 +1,6 @@
 # VS Code Python TimeIt
 
-Display the execution time of a Python function by providing custom argument values.
+View the execution time (as a comment) of any Python function using custom argument values.
 
 <p align="center">
 <img src="images/demo_time.gif" alt="Demo"/>

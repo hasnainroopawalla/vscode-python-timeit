@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.3.1]
+- Updated the extension's description
+
 ## [1.3.0]
 - The working version of the extension can now be installed and used in Visual Studio Code
 
