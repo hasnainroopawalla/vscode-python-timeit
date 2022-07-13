@@ -22,12 +22,11 @@ Display the execution time of a Python function by providing custom argument val
 * Handles various types of Python function definitions including type hints and default values.
 
 
-## Requirements
-
-This extension requires the `python-shell` npm package ([install](https://www.npmjs.com/package/python-shell)). 
-
 ## Known Issue(s)
 
 * The parser fails for Python functions which contain type hints for return type(s).
 * The parser fails for functions with no arguments.
 
+
+## Installation 
+The extension can be installed from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=HasnainRoopawalla.vscode-python-timeit).

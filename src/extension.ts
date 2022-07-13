@@ -1,6 +1,5 @@
 import * as vscode from 'vscode';
 import { parseFunctionHeader, generateExecutionTimePythonCode, FunctionArgument } from "./utils";
-
 const pythonshell = require('python-shell');
 
 export function activate(context: vscode.ExtensionContext) {

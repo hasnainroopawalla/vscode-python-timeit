@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.3.0]
+- The working version of the extension can now be installed and used in Visual Studio Code
+
+## [1.2.6]
+- Updated the package.json file to preinstall `python-shell`
+
 ## [1.2.5]
 - Changed the `python-shell` import statement
 
