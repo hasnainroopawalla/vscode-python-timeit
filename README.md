@@ -10,7 +10,7 @@
 ![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/hasnainroopawalla.vscode-python-timeit)
 ![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/r/hasnainroopawalla.vscode-python-timeit)
 
-View the execution time (as a comment) of any Python function using custom argument values.
+View the execution time of any Python function on the fly.
 
 <p align="center">
 <img src="images/demo_time.gif" alt="Demo"/>

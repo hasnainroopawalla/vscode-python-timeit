@@ -1,5 +1,8 @@
 # Change Log
 
+## 13-July-2022 [1.3.4]
+- Updated the description of the extension
+
 ## 13-July-2022 [1.3.3]
 - Updated the README
   - Added status badges
