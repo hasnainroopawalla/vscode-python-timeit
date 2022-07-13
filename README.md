@@ -1,5 +1,11 @@
 # VS Code Python TimeIt
 
+<p align="center">
+    <img width=200 src="images/icon.jpg" alt="VS Code Python Time It Logo">
+</p>
+
+---
+
 View the execution time (as a comment) of any Python function using custom argument values.
 
 <p align="center">

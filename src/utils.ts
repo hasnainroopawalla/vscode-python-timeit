@@ -10,8 +10,11 @@ export function parseFunctionHeader(code: string) {
 	let functionName: string = matches[1];
 	let functionArgumentsString: string = matches[2];
 
-	let functionArgumentsStringSplit: string[] = functionArgumentsString.split(',');
 	let functionArguments: FunctionArgument[] = [];
+	if (functionArgumentsString.length === 0) { // Return an empty FunctionArgument array if function contains no arguments
+		return [functionName, functionArguments] as const;
+	}
+	let functionArgumentsStringSplit: string[] = functionArgumentsString.split(',');
 	const functionArgumentsRegExp: RegExp = /(\w*)\s?:?\s?(\w*)\s?=?\s?([\w"']*)/;
 
 	for (let i = 0; i < functionArgumentsStringSplit.length; i++) {
@@ -29,9 +32,11 @@ export function parseFunctionHeader(code: string) {
 export function generateExecutionTimePythonCode(code: string, functionName: string, functionArguments: FunctionArgument[]) {
 	let functionCallString = `${functionName}(`;
 	for (let i = 0; i < functionArguments.length; i++) {
-		functionCallString += `${functionArguments[i].name}=${functionArguments[i].value},`;
+		functionCallString += `${functionArguments[i].name}=${functionArguments[i].value}`;
+		if (i < functionArguments.length - 1) { // Add a comma after all arguments except the last
+			functionCallString += ',';
+		}
 	}
-	functionCallString = functionCallString.slice(0, -1); // discard the trailing comma
 	functionCallString += ')';
 	let codeToExecute: string =
 		code + '\n' +

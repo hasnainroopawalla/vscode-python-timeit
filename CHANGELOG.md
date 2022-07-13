@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.3.2]
+- Added an icon for the extension
+- Added the extension's logo to the README
+- Added support for Python functions containing no arguments
+  
 ## [1.3.1]
 - Updated the extension's description
 

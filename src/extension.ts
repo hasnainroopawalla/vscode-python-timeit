@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { parseFunctionHeader, generateExecutionTimePythonCode, FunctionArgument } from "./utils";
-const pythonshell = require('python-shell');
+import { PythonShell, PythonShellError } from "python-shell";
 
 export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('vscode-python-timeit.timeIt', async () => {
@@ -10,7 +10,7 @@ export function activate(context: vscode.ExtensionContext) {
 			vscode.window.showInformationMessage("Editor does not exist.");
 			return;
 		}
-		
+
 		function getfunctionArgumentsValues(functionArgument: FunctionArgument) {
 			return vscode.window.showInputBox({
 				placeHolder: `Enter value for ${functionArgument.name} (type: ${functionArgument.datatype}, default: ${functionArgument.value})`
@@ -32,14 +32,14 @@ export function activate(context: vscode.ExtensionContext) {
 		// Fetch argument values from the user
 		for (let i = 0; i < functionArguments.length; i++) {
 			let argValue = await getfunctionArgumentsValues(functionArguments[i]);
-			if (argValue) { // If input is empty, use default value
+			if (argValue) { // If input is empty, use the default argument value
 				functionArguments[i].value = argValue!;
 			}
 		}
 
 		const [codeToExecute, functionCallString] = generateExecutionTimePythonCode(code, functionName, functionArguments);
-
-		pythonshell.PythonShell.runString(codeToExecute, {}, function (err?: any, results?: string[]) {
+		console.log(codeToExecute);
+		PythonShell.runString(codeToExecute, {}, function (err?: PythonShellError, results?: string[]) {
 			if (err) {
 				console.log(err);
 				vscode.window.showInformationMessage(err.toString());
