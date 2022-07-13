@@ -1,6 +1,6 @@
 # VS Code Python TimeIt
 
-Quickly display the execution time of a Python function by providing custom argument values.
+Display the execution time of a Python function by providing custom argument values.
 
 <p align="center">
 <img src="images/demo_time.gif" alt="Demo"/>
@@ -9,6 +9,7 @@ Quickly display the execution time of a Python function by providing custom argu
 <p align="center">
 <img src="images/demo_time_2.gif" alt="Demo"/>
 </p>
+
 
 ## Features
 
@@ -20,7 +21,13 @@ Quickly display the execution time of a Python function by providing custom argu
 
 * Handles various types of Python function definitions including type hints and default values.
 
+
+## Requirements
+
+This extension requires the `python-shell` npm package ([source](https://www.npmjs.com/package/python-shell)). If this package is not detected, a prompt is generated for installation.
+
 ## Known Issue(s)
 
 * The parser fails for Python functions which contain type hints for return type(s).
+* The parser fails for functions with no arguments.
 
