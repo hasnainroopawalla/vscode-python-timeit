@@ -9,7 +9,7 @@ import * as time2it from '../../utils';
 // import * as myExtension from '../../extension';
 
 suite('Extension Test Suite', () => {
-	vscode.window.showInformationMessage('Start all tests.');
+	// vscode.window.showInformationMessage('Start all tests.');
 
 	test('Sample test', () => {
 		assert.strictEqual(-1, [1, 2, 3].indexOf(5));

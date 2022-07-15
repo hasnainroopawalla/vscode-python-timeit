@@ -5,7 +5,7 @@ import { PythonShell, PythonShellError } from "python-shell";
 export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('vscode-python-timeit.timeIt', async () => {
 		const editor = vscode.window.activeTextEditor;
-
+		
 		if (!editor) {
 			vscode.window.showInformationMessage("Editor does not exist.");
 			return;

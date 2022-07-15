@@ -5,6 +5,7 @@ export interface FunctionArgument {
 };
 
 export function parseFunctionHeader(code: string) {
+	console.log(code);
 	const functionHeaderRegExp: RegExp = /def (\w+)\s*\((.*?)\):/;
 	let matches: string[] = code.match(functionHeaderRegExp)!;
 	let functionName: string = matches[1];
@@ -26,6 +27,8 @@ export function parseFunctionHeader(code: string) {
 		let functionArgument: FunctionArgument = { name: variableName, datatype: variableDataType, value: variableValue };
 		functionArguments.push(functionArgument);
 	}
+	console.log(functionName);
+	console.log(functionArguments);
 	return [functionName, functionArguments] as const;
 }
 
