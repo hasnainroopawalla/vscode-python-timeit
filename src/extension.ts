@@ -1,11 +1,11 @@
 import * as vscode from 'vscode';
 import { parseFunctionHeader, generateExecutionTimePythonCode, FunctionArgument } from "./utils";
-import { PythonShell, PythonShellError } from "python-shell";
+import { executePythonCode, ExecutionResult } from "./python";
 
 export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('vscode-python-timeit.timeIt', async () => {
 		const editor = vscode.window.activeTextEditor;
-		
+
 		if (!editor) {
 			vscode.window.showInformationMessage("Editor does not exist.");
 			return;
@@ -18,7 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		function displayExecutionTime(executionTime: string) {
-			let pos = new vscode.Position(editor?.selection.active.line as number, editor?.selection.active.character as number);
+			let pos = new vscode.Position(editor?.selection.end.line as number + 1, editor?.selection.end.character as number);
 			editor?.edit((edit) => {
 				edit.insert(pos, `# ${functionCallString} => ${executionTime} seconds\n`);
 			});
@@ -38,18 +38,9 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		const [codeToExecute, functionCallString] = generateExecutionTimePythonCode(code, functionName, functionArguments);
-		console.log(codeToExecute);
-		PythonShell.runString(codeToExecute, {}, function (err?: PythonShellError, results?: string[]) {
-			if (err) {
-				console.log(err);
-				vscode.window.showInformationMessage(err.toString());
-			}
-			else {
-				let executionTime: string = parseFloat(results![results!.length - 1]).toFixed(5);
-				displayExecutionTime(executionTime);
-			}
+		let result: ExecutionResult = executePythonCode(codeToExecute);
+		console.log(result);
 
-		});
 	});
 	context.subscriptions.push(disposable);
 }
