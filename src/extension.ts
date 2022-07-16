@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
-import { parseFunctionHeader, generateExecutionTimePythonCode, FunctionArgument } from "./utils";
+import { parseFunctionHeader, injectExecutionTimePythonSnippet } from "./utils";
+import { ExecutionResult, FunctionArgument } from './interfaces';
 import { PythonShell, PythonShellError } from "python-shell";
 
 export function activate(context: vscode.ExtensionContext) {
@@ -17,12 +18,17 @@ export function activate(context: vscode.ExtensionContext) {
 			});
 		}
 
-		function displayExecutionTime(executionTime: string) {
-			let pos = new vscode.Position(editor?.selection.active.line as number, editor?.selection.active.character as number);
-			editor?.edit((edit) => {
-				edit.insert(pos, `# ${functionCallString} => ${executionTime} seconds\n`);
-			});
-			vscode.window.showInformationMessage(`Execution Time: ${executionTime} seconds`);
+		function displayResult(result: ExecutionResult) {
+			if (result.isError) {
+				vscode.window.showInformationMessage(result.errorMessage);
+			}
+			else {
+				let pos = new vscode.Position(editor?.selection.end.line as number + 1, editor?.selection.end.character as number);
+				editor?.edit((edit) => {
+					edit.insert(pos, `# ${functionCallString} => ${result.executionTime} seconds\n`);
+				});
+				vscode.window.showInformationMessage(`Execution Time: ${result.executionTime} seconds`);
+			}
 		}
 
 		let code = editor.document.getText(editor.selection).trim();
@@ -37,19 +43,21 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 		}
 
-		const [codeToExecute, functionCallString] = generateExecutionTimePythonCode(code, functionName, functionArguments);
-		console.log(codeToExecute);
+		const [codeToExecute, functionCallString] = injectExecutionTimePythonSnippet(code, functionName, functionArguments);
+
+		var result: ExecutionResult = { isError: true, executionTime: "", errorMessage: "" };
 		PythonShell.runString(codeToExecute, {}, function (err?: PythonShellError, results?: string[]) {
 			if (err) {
-				console.log(err);
-				vscode.window.showInformationMessage(err.toString());
+				result.isError = true;
+				result.errorMessage = err.toString();
 			}
 			else {
-				let executionTime: string = parseFloat(results![results!.length - 1]).toFixed(5);
-				displayExecutionTime(executionTime);
+				result.isError = false;
+				result.executionTime = parseFloat(results![results!.length - 1]).toFixed(5);
 			}
-
+			displayResult(result);
 		});
+
 	});
 	context.subscriptions.push(disposable);
 }
