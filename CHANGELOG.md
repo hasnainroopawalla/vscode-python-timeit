@@ -1,5 +1,10 @@
 # Change Log
 
+## 16-July-2022 [1.3.6]
+- Fixed a big that caused parsing errors for functions containing argument(s) with default values as decimals
+- Fixed a bug that caused the result comment string to be displayed at the incorrect position
+- Added unit tests for the `utils` functions
+
 ## 13-July-2022 [1.3.5]
 - Updated the logo (removed background to make it a vector)
   

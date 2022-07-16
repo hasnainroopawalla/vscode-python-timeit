@@ -1,4 +1,4 @@
-import { FunctionArgument } from "../utils";
+import { FunctionArgument } from "../interfaces";
 
 const objectsEqual = (o1: any, o2: any): boolean =>
     typeof o1 === 'object' && Object.keys(o1).length > 0

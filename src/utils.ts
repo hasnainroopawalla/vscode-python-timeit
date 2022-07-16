@@ -1,8 +1,4 @@
-export interface FunctionArgument {
-	name: string;
-	datatype: string;
-	value: string;
-};
+import { FunctionArgument } from './interfaces';
 
 export function parseFunctionHeader(code: string) {
 	const functionHeaderRegExp: RegExp = /def (\w+)\s*\((.*?)\):/;
@@ -29,7 +25,7 @@ export function parseFunctionHeader(code: string) {
 	return [functionName, functionArguments] as const;
 }
 
-export function generateExecutionTimePythonCode(code: string, functionName: string, functionArguments: FunctionArgument[]) {
+export function injectExecutionTimePythonSnippet(code: string, functionName: string, functionArguments: FunctionArgument[]) {
 	let functionCallString = `${functionName}(`;
 	for (let i = 0; i < functionArguments.length; i++) {
 		functionCallString += `${functionArguments[i].name}=${functionArguments[i].value}`;

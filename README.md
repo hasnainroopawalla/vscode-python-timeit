@@ -25,7 +25,7 @@ View the execution time of any Python function on the fly.
 
 * Simply select/highlight the entire function (including import statements if required) with the cursor and trigger the `Time It` command. 
 
-* The generated function call with the specified arguments and the execution time is inserted as a comment above the selected code.
+* The generated function call with the specified arguments and the execution time is inserted as a comment below the selected code.
 
 * Uses the built-in Python3 [time](https://docs.python.org/3/library/time.html) module to efficiently compute the execution time.
 
