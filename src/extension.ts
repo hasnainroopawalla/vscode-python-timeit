@@ -23,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
 				vscode.window.showInformationMessage(result.errorMessage);
 			}
 			else {
-				let pos = new vscode.Position(editor?.selection.end.line as number + 1, editor?.selection.end.character as number);
+				let pos = new vscode.Position(editor?.selection.end.line as number + 1, 0);
 				editor?.edit((edit) => {
 					edit.insert(pos, `# ${functionCallString} => ${result.executionTime} seconds\n`);
 				});

@@ -1,5 +1,8 @@
 # Change Log
 
+## 16-July-2022 [1.3.7]
+- Fixed a bug that caused the result comment string to be inserted at the incorrect position when the another result comment string already existed
+
 ## 16-July-2022 [1.3.6]
 - Fixed a big that caused parsing errors for functions containing argument(s) with default values as decimals
 - Fixed a bug that caused the result comment string to be displayed at the incorrect position
