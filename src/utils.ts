@@ -1,7 +1,7 @@
 import { FunctionArgument } from './interfaces';
 
 export function parseFunctionHeader(code: string) {
-	const functionHeaderRegExp: RegExp = /def (\w+)\s*\((.*?)\):/;
+	const functionHeaderRegExp: RegExp = /def (\w+)\s*\((.*?)\).*:/;
 	let matches: string[] = code.match(functionHeaderRegExp)!;
 	let functionName: string = matches[1];
 	let functionArgumentsString: string = matches[2];

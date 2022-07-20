@@ -1,10 +1,14 @@
 # Change Log
 
+## 20-July-2022 [1.3.8]
+- Fixed a [bug](https://github.com/hasnainroopawalla/vscode-python-timeit/issues/1) that caused parsing errors for functions containing type hints for return type(s)
+- Replaced the demo GIFs in the README
+
 ## 16-July-2022 [1.3.7]
 - Fixed a bug that caused the result comment string to be inserted at the incorrect position when the another result comment string already existed
 
 ## 16-July-2022 [1.3.6]
-- Fixed a big that caused parsing errors for functions containing argument(s) with default values as decimals
+- Fixed a [bug](https://github.com/hasnainroopawalla/vscode-python-timeit/issues/3) that caused parsing errors for functions containing argument(s) with default values as decimals
 - Fixed a bug that caused the result comment string to be displayed at the incorrect position
 - Added unit tests for the `utils` functions
 
@@ -23,7 +27,7 @@
 ## 13-July-2022 [1.3.2]
 - Added an icon for the extension
 - Added the extension's logo to the README
-- Added support for Python functions containing no arguments
+- Added support for Python functions containing no arguments ([reference](https://github.com/hasnainroopawalla/vscode-python-timeit/issues/2))
   
 ## 13-July-2022 [1.3.1]
 - Updated the extension's description

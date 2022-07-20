@@ -64,4 +64,17 @@ suite('Utils Test Suite', () => {
 		assert(functionArgumentsEqual(expectedFunctionArguments, actualFunctionArguments));
 		assert.strictEqual(expectedFunctionName, actualFunctionName);
 	});
+
+	test('parseFunctionHeader functionWithReturnType', () => {
+		const code: string = `def powerFunction(a: int =3, b: float= 4, c: int=6) -> Tuple[float, int]:\n\treturn (a * b ** c, b**a)`;
+		const [actualFunctionName, actualFunctionArguments] = parseFunctionHeader(code);
+		const expectedFunctionName: string = "powerFunction";
+		const expectedFunctionArguments: FunctionArgument[] = [
+			{ name: 'a', datatype: 'int', value: '3' },
+			{ name: 'b', datatype: 'float', value: '4' },
+			{ name: 'c', datatype: 'int', value: '6' }
+		];
+		assert(functionArgumentsEqual(expectedFunctionArguments, actualFunctionArguments));
+		assert.strictEqual(expectedFunctionName, actualFunctionName);
+	});
 });
